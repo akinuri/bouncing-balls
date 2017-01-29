@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" media="screen" href="" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: gainsboro;
+			}
+			select {
+				position: fixed;
+				left: 10px;
+				top: 10px;
+			}
+			iframe {
+				width: 500px;
+				height: 400px;
+				margin: 0 auto;
+				display: block;
+				border: 0;
+			}
+		</style>
+	<head>
+<body>
+
+<select onchange="loadDemo(this)">
+	<optgroup label="Collision in 1D">
+		<option value="collision in 1D/0 - one ball">One Ball</option>
+		<option value="collision in 1D/1 - two balls (one moving)">Two Balls (one moving)</option>
+		<option value="collision in 1D/2 - two balls (both moving)">Two Balls (both moving)</option>
+	</optgroup>
+	<optgroup label="Collision in 2D">
+		<option value="collision in 2D/0 - one ball">One Ball</option>
+		<option value="collision in 2D/1 - two balls (collision detection)">Two Balls (collision detection)</option>
+		<option value="collision in 2D/2 - two balls (1D elastic collision)">Two Balls (1D elastic collision)</option>
+		<option value="collision in 2D/3 - two balls (1D vs. 2D elastic collision)">Two Balls (1D vs. 2D elastic collision)</option>
+	</optgroup>
+</select>
+
+<iframe id="iframe" src=""></iframe>
+
+<script>
+	var iframe = document.getElementById("iframe");
+	function loadDemo(select) {
+		iframe.src = select.options[select.selectedIndex].value + "/index.html";
+	}
+</script>
+
+</body>
+</html>
