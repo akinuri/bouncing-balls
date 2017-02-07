@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>03 - one ball (done) - Collision in 1D</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: gainsboro;
+            }
+            canvas {
+                display: block;
+                margin: 20px auto;
+                background: white;
+                border: 1px solid darkgray;
+                box-shadow: 0 0 2px rgba(0,0,0,.2);
+            }
+        </style>
+    <head>
+<body>
+
+<canvas id="container" width="400" height="50"></canvas>
+
+<script src="scripts/utils.js"></script>
+<script src="scripts/vector.js"></script>
+<script src="scripts/ball.js"></script>
+<script>
+    var canvas  = document.getElementById("container");
+    var context = canvas.getContext("2d");
+    
+    var container = {
+        left    : 0,
+        right   : canvas.width,
+        top     : 0,
+        bottom  : canvas.height,
+    };
+    
+    var ball = new Ball(25, random(50, 200), 25, 3, 0);
+    
+    function draw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        ball.move();
+        ball.detectWallCollision();
+        ball.draw();
+        requestAnimationFrame(draw);
+    }
+    
+    draw();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>07 - two balls (intersecting balls) - Collision in 1D</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: gainsboro;
+            }
+            canvas {
+                display: block;
+                margin: 20px auto;
+                background: white;
+                border: 1px solid darkgray;
+                box-shadow: 0 0 2px rgba(0,0,0,.2);
+            }
+        </style>
+    <head>
+<body>
+
+<canvas id="container" width="400" height="50"></canvas>
+
+<script src="scripts/utils.js"></script>
+<script src="scripts/vector.js"></script>
+<script src="scripts/ball.js"></script>
+<script>
+    var canvas  = document.getElementById("container");
+    var context = canvas.getContext("2d");
+    
+    var container = {
+        left    : 0,
+        right   : canvas.width,
+        top     : 0,
+        bottom  : canvas.height,
+    };
+    
+    var firstBall  = new Ball(25, random(50, 150), 25, random(15, 20), 0);
+    var secondBall = new Ball(25, random(250, 350), 25, random(0, 15), 0, "blue");
+    var balls      = [firstBall, secondBall];
+    
+    var fps = 2, now, elapsed, start = Date.now();
+    var fpsInterval = 1000 / fps;
+    
+    function draw() {
+        
+        now = Date.now();
+        elapsed = now - start;
+        
+        if (elapsed > fpsInterval ) {
+            
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            firstBall.move();
+            secondBall.move();
+            firstBall.detectWallCollision();
+            secondBall.detectWallCollision();
+            trackBallCollisions(); // see Ball.prototype.collidingWith
+            firstBall.draw();
+            secondBall.draw();
+            
+            start = now - (elapsed % fpsInterval);
+        }
+        requestAnimationFrame(draw);
+    }
+    
+    draw();
+</script>
+
+</body>
+</html>

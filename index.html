@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title></title>
+		<title>Bouncing/colliding balls in 1D & 2D</title>
 		<link rel="stylesheet" type="text/css" media="screen" href="" />
 		<style>
 			* {
@@ -28,26 +28,45 @@
 	<head>
 <body>
 
-<select onchange="loadDemo(this)">
-	<optgroup label="Collision in 1D">
-		<option value="collision in 1D/0 - one ball">One Ball</option>
-		<option value="collision in 1D/1 - two balls (one moving)">Two Balls (one moving)</option>
-		<option value="collision in 1D/2 - two balls (both moving)">Two Balls (both moving)</option>
-	</optgroup>
-	<optgroup label="Collision in 2D">
-		<option value="collision in 2D/0 - one ball">One Ball</option>
-		<option value="collision in 2D/1 - two balls (collision detection)">Two Balls (collision detection)</option>
-		<option value="collision in 2D/2 - two balls (1D elastic collision)">Two Balls (1D elastic collision)</option>
-		<option value="collision in 2D/3 - two balls (1D vs. 2D elastic collision)">Two Balls (1D vs. 2D elastic collision)</option>
-	</optgroup>
-</select>
+<select onchange="loadDemo(this)"></select>
 
-<iframe id="iframe" src="collision in 1D/0 - one ball/index.html"></iframe>
+<iframe id="iframe" src="Collisions in 1D/00 - one ball (simple)/index.html"></iframe>
 
 <script>
+    var select = document.getElementsByTagName("select")[0];
+    var values = {
+        "Collisions in 1D" : [
+            "00 - one ball (simple)",
+            "01 - one ball (intersection with walls)",
+            "02 - one ball (snapping to walls)",
+            "03 - one ball (done)",
+            "04 - two balls (simple)",
+            "05 - two balls (collision detection)",
+            "06 - two balls (elastic collision)",
+            "07 - two balls (intersecting balls)",
+            "08 - two balls (snapping to balls)",
+            "09 - two balls (done)",
+            "10 - multiple balls (random positioning)"
+        ],
+        "Collisions in 2D" : [],
+    };
+    
+    for (var optgroup in values) {
+        var group = document.createElement("optgroup");
+        group.label = optgroup;
+        values[optgroup].forEach(function(value, index) {
+            var option = document.createElement("option");
+            option.innerText = values[optgroup][index];
+            option.value = optgroup + "/" + values[optgroup][index] + "/index.html";
+            group.appendChild(option);
+        });
+        select.appendChild(group);
+    }
+    
 	var iframe = document.getElementById("iframe");
+    
 	function loadDemo(select) {
-		iframe.src = select.options[select.selectedIndex].value + "/index.html";
+		iframe.src = select.options[select.selectedIndex].value;
 	}
 </script>
 
