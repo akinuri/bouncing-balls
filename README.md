@@ -5,7 +5,9 @@ Experiments about bouncing/colliding balls in 1D & 2D.
 **Collisions in 1D**
 
 * Problems solved
+
 * Ball-to-wall collision detection/handling
+
 * Ball-to-wall intersection (snapping)
 * Ball-to-ball collision detection/handling (1d elastic collision)
 * Ball-to-ball intersection (snapping)
@@ -16,3 +18,7 @@ Experiments about bouncing/colliding balls in 1D & 2D.
 **Collisions in 2D (WIP)**
 
 [View the demos.](http://akinuri.github.io/bouncing-balls)
+
+* Unordered list can use asterisks
+- Or minuses
++ Or pluses
