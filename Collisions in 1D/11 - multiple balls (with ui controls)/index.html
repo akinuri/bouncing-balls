@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>11 - multiple balls (with ui controls) - Collision in 1D</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: gainsboro;
+                font-family: arial;
+                font-size: 13px;
+            }
+            canvas {
+                display: block;
+                margin: 20px auto;
+                background: white;
+                border: 1px solid darkgray;
+                box-shadow: 0 0 2px rgba(0,0,0,.2);
+            }
+            #controls {
+                width: 400px;
+                margin: 20px auto;
+            }
+            #controls table {
+                width: 100%;
+            }
+            #controls table td {
+                text-align: center;
+            }
+            #controls input {
+                padding: 2px 5px;
+                float: right;
+            }
+            #controls p {
+                opacity: .3;
+                text-align: center;
+                margin: 10px auto;
+                line-height: 1.5;
+            }
+        </style>
+    <head>
+<body>
+
+<canvas id="container" width="400" height="50"></canvas>
+
+<div id="controls">
+    <table>
+        <tr>
+            <td>View:
+                <select id="view">
+                    <option>Solid</option>
+                    <option>Xray</option>
+                    <option>Wireframe</option>
+                </select>
+            </td>
+            <td>Fps:
+                <select id="fps">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>15</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option selected>60</option>
+                </select>
+            </td>
+            <td>Speed:
+                <select id="speed">
+                    <option>1x</option>
+                    <option>2x</option>
+                    <option>3x</option>
+                    <option>4x</option>
+                    <option>5x</option>
+                    <option>6x</option>
+                </select>
+            </td>
+            <td>
+                <input type="button" value="Reset Balls" id="reset" />
+            </td>
+        </tr>
+    </table>
+    <p>Pay attention to the collisions between balls and walls. There shouldn't be intersections among them. There will be, in case when the velocity of a ball is greater than its radius.</p>
+    <p>That happens in special cases, e.g., if you increase the speed, velocity of the balls are multiplied with the speed value you've chosen. (Lower the fps and switch to xray or wireframe to make it noticable.)</p>
+    <p>This only proves that we need a better collision detection and handling. Track the paths the balls will follow and detect and handle the collisions before they actualy occur, maybe?</p>
+</div>
+
+<script src="scripts/utils.js"></script>
+<script src="scripts/color.js"></script>
+<script src="scripts/vector.js"></script>
+<script src="scripts/ball.js"></script>
+<script src="scripts/controls.js"></script>
+<script>
+    var canvas  = document.getElementById("container");
+    var context = canvas.getContext("2d");
+    
+    var container = {
+        left    : 0,
+        right   : canvas.width,
+        top     : 0,
+        bottom  : canvas.height,
+    };
+    
+    var globals = {
+        fps     : 60,
+        speed   : 1,
+        xray    : false,
+        wireframe : false,
+    };
+    
+    var handler = null;
+    
+    var now, elapsed, start = Date.now();
+    var fpsInterval = 1000 / globals.fps;
+    
+    function init() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        balls = spawnBalls(random(1, 5), 25);
+        balls.forEach(function(ball) {
+            ball.draw();
+        });
+        draw();
+    }
+    init();
+    
+    function draw() {
+        now = Date.now();
+        elapsed = now - start;
+        if (elapsed > fpsInterval ) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            balls.forEach(function(ball) {
+                ball.move();
+            });
+            trackCollisions();
+            balls.forEach(function(ball) {
+                ball.draw();
+            });
+            start = now - (elapsed % fpsInterval);
+        }
+        handler = requestAnimationFrame(draw);
+    }
+</script>
+
+</body>
+</html>
