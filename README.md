@@ -9,7 +9,7 @@ Experiments about bouncing/colliding balls in 1D & 2D.
   * Ball-to-wall intersection (snapping)
   * Ball-to-ball collision detection/handling (1d elastic collision)
   * Ball-to-ball intersection (snapping)
-  * Random distribution of balls in a container
+  * Random distribution of balls in a container without intersections
 * Problems to solve
   * Collision prediction/handling to prevent intersection when v > r
 
